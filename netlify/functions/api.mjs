@@ -13,7 +13,7 @@ const DEFAULT = {
 };
 
 // Use explicit Netlify Function routes instead of relying on path-splat rewrites.
-export const config = {
+const routeConfig = {
   path: [
     '/api/health',
     '/api/login',
@@ -97,7 +97,7 @@ async function requestBody(request) {
   try { return await request.json(); } catch { return null; }
 }
 
-export default async function handler(request) {
+async function handler(request) {
   const method = request.method.toUpperCase();
   const url = new URL(request.url);
   const path = url.pathname.replace(/\/+$/, '') || '/';
@@ -195,3 +195,9 @@ export default async function handler(request) {
     return json(500, { error: 'Sunucu hatası oluştu. Netlify Functions loglarını kontrol edin.' });
   }
 }
+
+// Explicit Fetchable Module format for the current Netlify Functions runtime.
+export default {
+  fetch: handler,
+  config: routeConfig
+};
