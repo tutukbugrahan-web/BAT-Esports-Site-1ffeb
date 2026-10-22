@@ -12,17 +12,9 @@ const DEFAULT = {
   roster: [], staff: [], news: [], achievements: [], store: []
 };
 
-// Use explicit Netlify Function routes instead of relying on path-splat rewrites.
-const routeConfig = {
-  path: [
-    '/api/health',
-    '/api/login',
-    '/api/logout',
-    '/api/me',
-    '/api/data',
-    '/api/applications',
-    '/api/applications/:id'
-  ]
+// Netlify's supported route config: send every /api/* path to this function.
+export const config = {
+  path: "/api/*"
 };
 
 function json(status, data, headers = {}) {
@@ -97,7 +89,7 @@ async function requestBody(request) {
   try { return await request.json(); } catch { return null; }
 }
 
-async function handler(request) {
+export default async function handler(request) {
   const method = request.method.toUpperCase();
   const url = new URL(request.url);
   const path = url.pathname.replace(/\/+$/, '') || '/';
@@ -196,8 +188,3 @@ async function handler(request) {
   }
 }
 
-// Explicit Fetchable Module format for the current Netlify Functions runtime.
-export default {
-  fetch: handler,
-  config: routeConfig
-};
