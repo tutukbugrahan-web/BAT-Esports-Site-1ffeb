@@ -1,30 +1,27 @@
-# BAT ESPORTS
+# BAT ESPORTS — Official Website
 
-BAT Esports site: ana sayfa, PUBG Mobile kadrosu, yönetim ve ekip, duyurular, başarılar, mağaza, başvuru formu ve yönetim paneli. Site verileri Netlify Blobs üzerinde kalıcı saklanır.
+A responsive, multi-page-style esports website for BAT Esports. Main areas include a landing page, PUBG Mobile roster, team management, announcements, achievements, store, and recruitment form.
 
-## Netlify'de yayınlama
+## Detailed roster and staff profiles
 
-1. Şu bağlantıyı aç: https://app.netlify.com/start/deploy?repository=https://github.com/tutukbugrahan-web/BAT-Esports-Site
-2. GitHub deposuna erişim ver ve Netlify'de siteyi oluştur.
-3. Site configuration → Environment variables bölümüne şu üç değişkeni ekle:
-   - `BAT_ADMIN_USERNAME` — istediğin yönetici adı (ör. `batadmin`)
-   - `BAT_ADMIN_INITIAL_PASSWORD` — uzun, benzersiz ve yalnızca senin bildiğin bir şifre
-   - `BAT_SESSION_SECRET` — şifreden farklı, uzun rastgele bir gizli değer
-4. Deploys → Trigger deploy → Deploy site ile yeniden yayınla.
-5. `https://SİTE-ADRESİN/api/health` adresinde `{"ok":true,"service":"BAT Esports API"}` benzeri bir yanıt görmelisin.
+From the management panel, add or edit a player under **PUBG Kadrosu**. Fields include nickname, real name, PUBG Mobile ID, role, in-game position, age, country, device/FPS, K/D, season rank, competitive experience, achievements, biography, profile image, and social links. Click a roster card on the public site to open its full detail window.
 
-## Yönetim paneli
+Under **Yönetim & Ekip**, staff profiles support real name, display name, title, department, responsibilities, experience, biography, image, and social links. Staff cards also open a dedicated detail window. Announcement, achievement, and store cards can open detailed records as well.
 
-- Yönetici girişi: `/login.html` (veya `/login`)
-- Yönetim paneli: `/admin.html` (veya `/admin`)
-- İçerikleri düzenledikten sonra **Kaydet ve Yayınla** düğmesine bas.
-- Kadro, ekip, haber, başarı ve ürün kaydı ekleyebilir; metinleri ve görselleri düzenleyebilirsin.
-- Başvurular **Başvurular** sekmesinde listelenir.
+## Customize the website
 
-**Güvenlik:** Gerçek parolaları veya gizli değerleri GitHub dosyalarına yazma. Yalnızca Netlify Environment variables bölümünde sakla. Bu ortam değişkenlerini eklemeden önce yönetici girişi çalışmaz.
+Sign in at `/login.html` and open the management panel at `/admin.html`. The **Genel Ayarlar** tab lets you edit the brand name and tagline, upload a logo and hero image, choose the accent color, edit the home headline and descriptions, modify section titles, button text, navigation labels, footer text, and social links.
 
-## Güncel dağıtım kontrolü
+The **Kaydet ve Yayınla** action saves content through the API. Images selected in the panel are resized and stored with the website content.
 
-Kod güncellemesi GitHub'daki `main` dalına geldikten sonra Netlify > Deploys ekranında son dağıtımın commit kimliği kontrol edilir. Eski commit görünüyorsa site ayarlarında bağlı Git deposu ve production branch olarak `main` seçimi doğrulanır. Ardından `Trigger deploy` ile yeniden yayın yapılır.
+## Netlify deployment
 
-Netlify Function test adresi: `/api/health`. Beklenen yanıt: `{"ok":true,"service":"BAT Esports API"}`.
+1. This deployment is connected to the GitHub repository `tutukbugrahan-web/BAT-Esports-Site-1ffeb`, branch `main`.
+2. Netlify environment variables:
+   - `BAT_ADMIN_USERNAME`: your chosen management username (defaults to `batadmin` if not set).
+   - `BAT_ADMIN_INITIAL_PASSWORD`: your own strong password.
+   - `BAT_SESSION_SECRET`: a separate, long random secret.
+3. After code commits, check **Deploys** and make sure the production commit follows the latest `main` commit.
+4. Test `/api/health`; the expected result is `{"ok":true,"service":"BAT Esports API"}`.
+
+Do not put passwords or secret values in source files or share them in screenshots.
